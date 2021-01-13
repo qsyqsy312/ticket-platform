@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+    ​
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    ​
+
+    ​​
+    <!-- 时间滚动输出 level为 INFO 日志 -->
+    <appender name="logFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>logs/localhost.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>10</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    ​
+    ​
+    <!-- 指定项目可输出的最低级别日志 -->
+    <!--spring profile -->
+    <!-- level 级别：TRACE, DEBUG, INFO, WARN, ERROR, ALL, OFF -->
+    <!--本地开发环境 -->
+    <springProfile name="default,dev,test">
+        <root level="INFO">
+            <appender-ref ref="console"/>
+<!--            <appender-ref ref="logFile"/>-->
+        </root>
+        <logger name="com.ticket" level="DEBUG"/>
+        <logger name="dao" level="DEBUG"/>
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+        <logger name="org.hibernate.SQL" level="DEBUG"/>
+        <logger name="org.springframework.jdbc.core" level="DEBUG"/>
+    </springProfile>
+
+    <!-- 生产环境、docker 环境 -->
+    <springProfile name="ali,bce,prod,docker">
+        <root level="ERROR">
+            <appender-ref ref="console"/>
+<!--            <appender-ref ref="logFile"/>-->
+        </root>
+        <logger name="com.ticket" level="DEBUG"/>
+    </springProfile>
+</configuration>

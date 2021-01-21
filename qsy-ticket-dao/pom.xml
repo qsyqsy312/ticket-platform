@@ -25,16 +25,6 @@
              <version>4.1.1</version>
          </dependency>
 
-         <!--query dsl-->
-         <dependency>
-             <groupId>com.querydsl</groupId>
-             <artifactId>querydsl-jpa</artifactId>
-         </dependency>
-         <dependency>
-             <groupId>com.querydsl</groupId>
-             <artifactId>querydsl-apt</artifactId>
-             <scope>provided</scope>
-         </dependency>
-         <!--query dsl end-->
+
      </dependencies>
 </project>

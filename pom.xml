@@ -22,4 +22,5 @@
         <module>qsy-ticket-support</module>
         <module>qsy-ticket-entity</module>
     </modules>
+
 </project>

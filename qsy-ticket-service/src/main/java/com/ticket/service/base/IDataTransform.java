@@ -2,7 +2,7 @@ package com.ticket.service.base;
 
 
 import com.ticket.entity.base.BaseModel;
-import com.ticket.support.base.BaseDTO;
+import com.ticket.support.dto.base.BaseDTO;
 
 import java.io.Serializable;
 

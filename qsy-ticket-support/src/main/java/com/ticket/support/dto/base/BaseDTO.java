@@ -1,4 +1,4 @@
-package com.ticket.support.base;
+package com.ticket.support.dto.base;
 
 public class BaseDTO {
 

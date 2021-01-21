@@ -1,7 +1,7 @@
 package com.ticket.service.base;
 
 import com.ticket.entity.base.BaseModel;
-import com.ticket.support.base.BaseDTO;
+import com.ticket.support.dto.base.BaseDTO;
 import org.apache.shardingsphere.api.sharding.complex.ComplexKeysShardingAlgorithm;
 import org.apache.shardingsphere.core.rule.TableRule;
 import org.apache.shardingsphere.core.strategy.route.complex.ComplexShardingStrategy;

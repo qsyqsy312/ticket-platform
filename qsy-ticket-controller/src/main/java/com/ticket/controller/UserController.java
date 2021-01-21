@@ -2,7 +2,7 @@ package com.ticket.controller;
 
 
 import com.ticket.service.IUserService;
-import com.ticket.support.UserDTO;
+import com.ticket.support.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

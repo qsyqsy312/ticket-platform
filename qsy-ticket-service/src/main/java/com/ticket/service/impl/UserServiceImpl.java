@@ -7,20 +7,21 @@ import com.ticket.entity.Role;
 import com.ticket.entity.User;
 import com.ticket.service.IUserService;
 import com.ticket.service.base.BaseService;
+import com.ticket.support.constants.Constants;
 import com.ticket.support.dto.UserDTO;
 import com.ticket.support.dto.base.BaseDTO;
+import com.ticket.support.dto.base.LoginUserInfo;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.CredentialsContainer;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -36,26 +37,13 @@ public class UserServiceImpl extends BaseService<User, String> implements IUserS
 
 
     @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+
+    @Autowired
     private RoleRepository roleRepository;
 
 
-    private static class UserInfo extends org.springframework.security.core.userdetails.User {
-        private String id;
-
-        public UserInfo(String id,String username, String password, Collection<? extends GrantedAuthority> authorities) {
-            super(username, password, authorities);
-            this.id = id;
-        }
-
-        public UserInfo(String id,String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-            super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-            this.id = id;
-        }
-
-        public String getId() {
-            return id;
-        }
-    }
 
 
     @Override
@@ -65,8 +53,8 @@ public class UserServiceImpl extends BaseService<User, String> implements IUserS
         map.put("userName", username);
         User user = baseDao.findOne(getSpecification(map)).orElseThrow(() -> new UsernameNotFoundException("用户名或者密码错误！"));
         Set<Role> roles = user.getRoles();
-        //TODO:角色
-        UserInfo userInfo = new UserInfo(user.getId(), user.getUserName(), user.getPassword(), Lists.newArrayList());
+        //TODO:角色和权限
+        LoginUserInfo userInfo = new LoginUserInfo(user.getId(), user.getUserName(), user.getPassword(), Lists.newArrayList());
         return userInfo;
     }
 

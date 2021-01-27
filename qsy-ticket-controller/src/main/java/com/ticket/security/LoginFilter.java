@@ -12,11 +12,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public class LoginFilter extends AbstractAuthenticationProcessingFilter {
 
     private boolean postOnly = true;
 
-    public AuthenticationFilter() {
+    public LoginFilter() {
         super(new AntPathRequestMatcher("/user/login", "POST"));
     }
 
